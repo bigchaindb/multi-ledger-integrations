@@ -49,7 +49,7 @@ The code is structured in ES6 modules and can be used by calling the workflow.js
 The configuration section in config.js needs the following values,
 
 1. BigchainDB server endpoint (ex: "http://localhost:29984/api/v1/")
-1. Server/node endpoints for additional ledgers (ex: "http://node02.iotatoken.nl:14265/")
+1. Server/node endpoints for additional ledgers
 
 ### Example usage
 
