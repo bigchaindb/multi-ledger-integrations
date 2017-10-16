@@ -4,7 +4,7 @@ BigchainDB transaction integrations with other ledgers using a workflow based ar
 
 ## Approach
 
-1. A transactions is created in BigchainDB with some data
+1. A transaction is created in BigchainDB with some data
 1. Another transaction is created in another ledger (ex: IOTA) with same data
 1. The BigchainDB transcation is updated with transaction Id of transaction from other ledgers
 
@@ -46,33 +46,39 @@ The code is structured in ES6 modules and can be used by calling the workflow.js
 
 ### Configuration
 
-The configuration section in config.js needs two values,
+The configuration section in config.js needs the following values,
 
-1. BigchainDB server url (ex: "http://localhost:29984/api/v1/")
-1. IOTA node url (ex: "http://node02.iotatoken.nl:14265/")
+1. BigchainDB server endpoint (ex: "http://localhost:29984/api/v1/")
+1. Server/node endpoints for additional ledgers (ex: "http://node02.iotatoken.nl:14265/")
 
 ### Example usage
 
 ```js
+// Import the modules
 import * as workflow from 'bdb-ledgers'
+
+// Set the congiguration for ledger endpoints and seed
+// Seed: For BDB it is used to generate a ED25519 keypair using bip39
+// Seed: For IOTA this is the required seed parameter for the API
+// The configuration needs to be in the following schema (a array of objects with 3 fields as defined below)
 workflow.setConfig({
     [
         {
             "ledger": "bdb",
-            "server": "http://localhost:29984/api/v1/"
+            "host": "http://localhost:29984/api/v1/",
+            "seed": "abcdefghij"
         },
         {
             "ledger": "iota",
-            "server": "http://node02.iotatoken.nl:14265/"
+            "host": "http://node02.iotatoken.nl:14265/",
+            "seed": "KHDJNDXXHKRDHDPNLIVGQWMMIEYMBOXTSXHGOQPHRFXDZCTPWGXGBEIFBKBCUZMULPMRNLATQCTIUCINM"
         },
         ...
     ]
 })
-workflow.execute(asset, metadata, "iota")
+
+// Execute the workflow
+workflow.execute(asset, metadata, ["iota"])
 ```
 
-The above code snippet does the following,
-
-1. Imports the modules
-1. Sets the server configurations
-1. Executes the workflow with IOTA as an additional ledger
+The above code snippet executes the workflow (sends transactions) with IOTA as a ledger in addition to BigchainDB and returns the BigchainDB transaction with link to IOTA transaction.
