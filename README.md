@@ -21,7 +21,7 @@ In the following example the IOTA transaction id is stored as a link in the Bigc
         "schema": "http://schema.bdb.user"
     },
     "metadata": {
-        "_data": {
+        "values": {
             "name": "BDB User"
         },
         "_links": [
@@ -55,30 +55,28 @@ The configuration section in config.js needs the following values,
 
 ```js
 // Import the modules
-import * as workflow from 'bdb-ledgers'
+import { Workflow } from 'bdb-ledgers'
 
 // Set the congiguration for ledger endpoints and seed
 // Seed: For BDB it is used to generate a ED25519 keypair using bip39
 // Seed: For IOTA this is the required seed parameter for the API
 // The configuration needs to be in the following schema (a array of objects with 3 fields as defined below)
-workflow.setConfig({
-    [
-        {
-            "ledger": "bdb",
-            "host": "http://localhost:29984/api/v1/",
-            "seed": "abcdefghij"
-        },
-        {
-            "ledger": "iota",
-            "host": "http://node02.iotatoken.nl:14265/",
-            "seed": "KHDJNDXXHKRDHDPNLIVGQWMMIEYMBOXTSXHGOQPHRFXDZCTPWGXGBEIFBKBCUZMULPMRNLATQCTIUCINM"
-        },
-        ...
-    ]
-})
+const config = [{
+                    'ledger': 'bdb',
+                    'host': 'http://localhost:29984/api/v1/',
+                    'seed': 'abcdefghij'
+                },
+                {
+                    'ledger': 'iota',
+                    'host': 'http://node02.iotatoken.nl:14265/',
+                    'seed': 'KHDJNDXXHKRDHDPNLIVGQWMMIEYMBOXTSXHGOQPHRFXDZCTPWGXGBEIFBKBCUZMULPMRNLATQCTIUCINM'
+                }]
+
+// Create workflow object
+const workflow = new Workflow(config)
 
 // Execute the workflow
-workflow.execute(asset, metadata, ["iota"])
+const result = await workflow.execute({ ns: 'bdb.user' }, { values: { name: 'bdb user' } }, ['iota'])
 ```
 
 The above code snippet executes the workflow (sends transactions) with IOTA as a ledger in addition to BigchainDB and returns the BigchainDB transaction with link to IOTA transaction.
