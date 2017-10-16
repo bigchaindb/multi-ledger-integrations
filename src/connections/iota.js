@@ -12,24 +12,14 @@ export default class IotaConnection {
         this.seed = options.seed ? options.seed : defaultSeed
     }
 
+    // Gets connection to the IOTA node
     getConnection(host) {
         return new IOTA({
             'provider': host
         })
     }
 
-    getNodeInfo() {
-        return new Promise((resolve, reject) => {
-            this.conn.api.getNodeInfo((err, data) => {
-                if (err) {
-                    reject(err)
-                } else {
-                    resolve(data)
-                }
-            })
-        })
-    }
-
+    // Gets the address for sending a IOTA transfer
     async getNewAddress(seed) {
         return new Promise((resolve, reject) => {
             this.conn.api.getNewAddress(seed, {}, (err, data) => {
@@ -42,6 +32,7 @@ export default class IotaConnection {
         })
     }
 
+    // Gets trytes from data
     getTrytes(data) {
         const hash = sha256(JSON.stringify(data))
         const str = hash.toString(CryptoJS.enc.Base64)
@@ -49,7 +40,12 @@ export default class IotaConnection {
         return trytes
     }
 
-    async createTransaction(data, metadata = {}) {
+    // Creates a IOTA transfer
+    async createTransaction(asset, metadata) {
+        const data = {
+            'asset': asset,
+            'metadata': metadata
+        }
         const trytes = this.getTrytes(data)
         const address = await this.getNewAddress(this.seed)
         const transfer = [{
@@ -68,6 +64,7 @@ export default class IotaConnection {
         }
     }
 
+    // Sends the IOTA transfer
     async _sendTransaction(transfer, seed) {
         return new Promise((resolve, reject) => {
             this.conn.api.sendTransfer(seed, 3, 15, transfer, {}, (err, tx) => {

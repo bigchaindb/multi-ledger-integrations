@@ -1,6 +1,6 @@
 # BigchainDB Multi-Ledger-Integrations
 
-BigchainDB transaction integrations with other ledgers using a workflow based architecture.
+BigchainDB transaction integrations with other ledgers using a workflow based architecture
 
 ## Approach
 
@@ -8,7 +8,7 @@ BigchainDB transaction integrations with other ledgers using a workflow based ar
 1. Another transaction is created in another ledger (ex: IOTA) with same data
 1. The BigchainDB transcation is updated with transaction Id of transaction from other ledgers
 
-> The metadata of the BigchainDB transaction contains a field `_links` which has the transaction ids from other ledgers.
+> The metadata of the BigchainDB transaction contains a field `_links` which has the transaction ids from other ledgers
 
 ### Example
 
@@ -55,7 +55,8 @@ The configuration section in config.js needs the following values,
 
 ```js
 // Import the modules
-import { Workflow } from 'bdb-ledgers'
+// Path depends on where you are importing from
+import Workflow from './workflow'
 
 // Set the congiguration for ledger endpoints and seed
 // Seed: For BDB it is used to generate a ED25519 keypair using bip39
@@ -68,7 +69,7 @@ const config = [{
                 },
                 {
                     'ledger': 'iota',
-                    'host': 'http://node02.iotatoken.nl:14265/',
+                    'host': '', // add IOTA node address here
                     'seed': 'KHDJNDXXHKRDHDPNLIVGQWMMIEYMBOXTSXHGOQPHRFXDZCTPWGXGBEIFBKBCUZMULPMRNLATQCTIUCINM'
                 }]
 

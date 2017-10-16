@@ -9,10 +9,12 @@ export default class BdbConnection {
         this.keypair = new driver.Ed25519Keypair(bip39.mnemonicToSeed(options.seed).slice(0, 32))
     }
 
+    // Gets connection to the BigchainDB node
     getConnection(host) {
         return new driver.Connection(host)
     }
 
+    // Creates a new BigchainDB transaction
     async createTransaction(asset, metadata) {
         const condition = driver.Transaction.makeEd25519Condition(this.keypair.publicKey, true)
 
@@ -32,10 +34,10 @@ export default class BdbConnection {
             .then(retrievedTx => {
                 tx = retrievedTx
             })
-
         return tx
     }
 
+    // Updates metadata in a BigchainDB transaction using self-transfer
     async updateTransaction(tx, metadata) {
         const condition = driver.Transaction.makeEd25519Condition(this.keypair.publicKey)
 
@@ -55,7 +57,6 @@ export default class BdbConnection {
             .then(retrievedTx => {
                 trTx = retrievedTx
             })
-
         return trTx
     }
 }

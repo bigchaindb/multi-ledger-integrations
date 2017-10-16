@@ -35,7 +35,7 @@ export default class Workflow {
 
         // createTransaction for each optionalLedger => result
         await Promise.all(optionalLedgerConnections.map(async (ledger) => {
-            const tx = await ledger.createTransaction(metadata, null)
+            const tx = await ledger.createTransaction(asset, metadata)
             if (tx !== '') {
                 result.push({ 'ledger': ledger.name, 'id': tx })
                 console.log(result)
