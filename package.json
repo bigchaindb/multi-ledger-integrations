@@ -1,7 +1,12 @@
 {
-  "name": "bdb-ledgers",
+  "name": "bdb-multi-ledger",
   "version": "1.0.0",
   "private": false,
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bigchaindb/multi-ledger-integrations.git"
+  },
   "scripts": {
     "release": "standard-version --no-verify",
     "clean": "rm -rf dist",
@@ -11,7 +16,7 @@
     "test": "mocha test --timeout 6000 --compilers js:babel-core/register --require babel-polyfill",
     "lint": "./node_modules/.bin/eslint --cache .",
     "git-hook": "validate-commit-msg && npm run lint"
-    },
+  },
   "dependencies": {
     "babel-runtime": "^6.26.0",
     "bigchaindb-driver": "^0.3.0",
@@ -19,11 +24,11 @@
     "crypto-js": "^3.1.9-1",
     "es6-promise": "^4.0.5",
     "import-dir": "^0.0.1",
-    "iota.lib.js": "^0.4.0"
+    "iota.lib.js": "^0.4.1"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
-    "babel-eslint": "^7.2.3",
+    "babel-eslint": "^8.0.1",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.0",
     "babel-register": "^6.24.1",
@@ -37,7 +42,6 @@
   },
   "keywords": [
     "bigchaindb",
-    "driver",
     "blockchain",
     "decentralized",
     "dapp"

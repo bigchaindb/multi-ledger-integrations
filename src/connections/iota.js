@@ -67,7 +67,7 @@ export default class IotaConnection {
     // Sends the IOTA transfer
     async _sendTransaction(transfer, seed) {
         return new Promise((resolve, reject) => {
-            this.conn.api.sendTransfer(seed, 3, 15, transfer, {}, (err, tx) => {
+            this.conn.api.sendTransfer(seed, 3, 14, transfer, {}, (err, tx) => {
                 if (err) {
                     reject(err)
                 } else {

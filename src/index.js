@@ -16,7 +16,7 @@ import Workflow from './workflow' // eslint-disable-line
             const workflow = new Workflow(config)
             console.log(workflow.configuration)
             const result = await workflow.execute(
-                { ns: 'bdb.user' }, { values: { name: `bdbuser-${parseInt(Math.random()*1000)}` } }, 
+                { ns: 'bdb.user' }, { values: { name: `bdbuser-${parseInt(Math.random()*1000)}` } },
                 ['iota'])
             console.log(JSON.stringify(result))
         } catch (ex) {
