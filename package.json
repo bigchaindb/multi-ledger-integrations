@@ -24,7 +24,7 @@
     "crypto-js": "^3.1.9-1",
     "es6-promise": "^4.0.5",
     "import-dir": "^0.0.1",
-    "iota.lib.js": "^0.4.1"
+    "iota.lib.js": "^0.4.2"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
